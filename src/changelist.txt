@@ -1,0 +1,1 @@
+3/20/2014 4:34pm	Fixed bug where selecting an unknown mission number would assert. Added ability for script functions to be strings as well. (Use [[ and ]] around the function body instead of 'function (...)' and 'end'.) This is in preparation for an editor-generated level.
