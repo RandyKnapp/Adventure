@@ -16,6 +16,7 @@ How To Create an Adventure
 
 Template adventure file
 -----------------------
+```
 return {
     adventure = {
         id = "",
@@ -35,6 +36,7 @@ return {
         }
     }
 }
+```
 
 Data Format:
 ------------
