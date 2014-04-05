@@ -124,7 +124,7 @@ Base Entity Data Format (all entities have this data):
 
 Item Data Format:
 -----------------
--- (all Entity data plus:)
+_(all Entity data plus:)_
 - pickup (String):     String to print when the player picks up the item into their inventory.
 - onPickup (Function): [self, player, room]:[Boolean, String] - Function to call when the player 
     attempts to pick up the item. Overrides pickup text. Should return a bool saying if the pickup 
