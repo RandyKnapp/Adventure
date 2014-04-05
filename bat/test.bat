@@ -1,0 +1,3 @@
+@echo off
+echo Testing game...
+"C:\Program Files (x86)\Lua\5.1\lua.exe" "main.lua"

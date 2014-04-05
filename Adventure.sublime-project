@@ -1,0 +1,41 @@
+{
+    "folders":
+    [
+        {
+            "path": "/",
+            "file_exclude_patterns": ["*.sublime-workspace", "*.sublime-project", "*.tmTheme", "*.md", ".gitignore"]
+        }
+    ],
+
+    "settings":
+    {
+        // We always use 4-space tabs, and never the tab character
+        "tab_size": 4,
+        "translate_tabs_to_spaces": true,
+        "use_tab_stops": true,
+        "ensure_newline_at_eof_on_save": true,
+        "shift_tab_unindent": true
+    },
+
+    "build_systems":
+    [
+        {
+            "name" : "Compile Adventure",
+            "cmd" : ["..\\bat\\compile.bat"],
+            "working_dir" : "$project_path/src",
+
+            "variants" : [
+                {
+                    "name": "Run",
+                    "cmd": ["..\\bat\\run.bat"],
+                    "working_dir" : "$project_path/src"
+                },
+                {
+                    "name": "Test",
+                    "cmd": ["..\\bat\\test.bat"],
+                    "working_dir" : "$project_path/src"
+                }
+            ]
+        }
+    ]
+}
