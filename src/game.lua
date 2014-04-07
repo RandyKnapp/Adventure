@@ -211,6 +211,19 @@ function Game:endAdventure ()
 end
 
 ---------------------------------------------------------------------------------------------------
+function Game:dispatchConfigEvent (eventName, ...)
+    assert(self.config, "ERROR: Game config does not exist.")
+
+    local events = self.config.events
+    if events then
+        local event = self.config.events[eventName]
+        if event and type(event) == "function" then
+            event(unpack(arg))
+        end
+    end
+end
+
+---------------------------------------------------------------------------------------------------
 function Game:formatStringForWidth (s, firstIndent, indent)
     firstIndent = firstIndent or "- "
     indent      = indent or "  "

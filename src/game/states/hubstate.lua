@@ -23,14 +23,7 @@ end
 
 ---------------------------------------------------------------------------------------------------
 function HubState:enter ()
-    game:writeCentered("*** Adventure Hub ***")
-    game:write(
-        "Welcome to the Adventure Hub, Player. " .. 
-        "I'm " .. Color.person("Ares") ..", the AI coordinating and directing Adventure. I'll be guiding you through each adventure you play.",
-        "Type " .. Color.help("list") .. " to see the available adventures. " ..
-        "Type " .. Color.help("start <adventure name>") .. " to go on an adventure." ..
-        " At any time, type " .. Color.help("help") .. " and I'll try to give you some advice."
-    )
+    game:dispatchConfigEvent("onEnterHub", game.player)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -53,8 +46,13 @@ function HubState:onAboutAdventures (params)
     -- Check to make sure adventure exists
     local adventure = game:getAdventureData(adventureId)
     if not adventure then
-        game:write("Adventure #" .. tostring(adventureIndex) .. " does not exist.")
-        return true
+        if type(adventureIndex) == "number" then
+            game:write("Adventure #" .. tostring(adventureIndex) .. " does not exist.")
+            return true
+        else
+            game:write(Color.noEffect("To learn about an adventure, please enter a number."))
+            return true
+        end
     end
 
     -- Begin adventure
@@ -77,8 +75,13 @@ function HubState:onStartAdventure (params)
     -- Check to make sure adventure exists
     local adventure = game:getAdventureData(adventureId)
     if not adventure then
-        game:write("Adventure #" .. tostring(adventureIndex) .. " does not exist.")
-        return true
+        if type(adventureIndex) == "number" then
+            game:write("Adventure #" .. tostring(adventureIndex) .. " does not exist.")
+            return true
+        else
+            game:write(Color.noEffect("To start an adventure, please enter a number."))
+            return true
+        end
     end
 
     -- Begin adventure
@@ -89,7 +92,7 @@ end
 
 ---------------------------------------------------------------------------------------------------
 function HubState:onQuit ()
-    game:write("Until next time, Player. Farewell.")
+    game:dispatchConfigEvent("onQuitGame", game.player)
     game.quit = true
     return true
 end
