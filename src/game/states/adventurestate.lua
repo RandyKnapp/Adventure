@@ -75,6 +75,10 @@ function AdventureState:constructor ()
     commands:addCommand("drop", {}, self.onDrop, dropHelp)
     commands:addCommand("quit", { "exit" }, self.onQuit, quitHelp)
     --commands:addCommand("save", self.onSave, saveHelp)
+
+    if DEBUG then
+        commands:addCommand("x", {}, function () game.quit = true; return true end, "")
+    end
 end
 
 ---------------------------------------------------------------------------------------------------

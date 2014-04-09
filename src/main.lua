@@ -15,6 +15,8 @@ LUA_PATH = "?;?.lua"
 local Game = require "game"
 Color = require 'util.color'
 
+DEBUG = true
+
 -- Aliases
 io_write = io.write
 
