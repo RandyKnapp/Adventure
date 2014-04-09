@@ -21,27 +21,33 @@ return {
     defaultExits = {
         bow = {
             article = "to the",
-            synonyms = { "b" }
+            synonyms = { "b" },
+            displayOrder = 1
         },
         stern = {
             article = "to the",
-            synonyms = { "s" }
+            synonyms = { "s" },
+            displayOrder = 2
         },
         port = {
             article = "to",
-            synonyms = { "p" }
+            synonyms = { "p" },
+            displayOrder = 3
         },
         starboard = {
             article = "to",
-            synonyms = { "sb" }
+            synonyms = { "sb" },
+            displayOrder = 4
         },
         up = {
             article = "",
-            synonyms = { "u" }
+            synonyms = { "u" },
+            displayOrder = 5
         },
         down = {
             article = "",
-            synonyms = { "d" }
+            synonyms = { "d" },
+            displayOrder = 6
         },
     },
     --=================================================================================================

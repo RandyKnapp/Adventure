@@ -11,6 +11,19 @@ local Color = require 'util.color'
 -- Aliases
 local assert, require, pairs, type, tableConcat, tableInsert = assert, require, pairs, type, table.concat, table.insert
 
+-- Helper methods
+local function sortPredicate (a, b)
+    if a.displayOrder ~= nil and b.displayOrder ~= nil then
+        return a.displayOrder < b.displayOrder
+    elseif a.displayOrder == nil and b.displayOrder ~= nil then
+            return false
+    elseif a.displayOrder ~= nil and b.displayOrder == nil then
+        return true
+    else
+        return true
+    end
+end
+
 --=================================================================================================
 local AdventureState = GameState:extends({
     adventureData = nil,
@@ -27,12 +40,30 @@ function AdventureState:constructor ()
 
     -- Help text
     local lookHelp = "Look at the room, look towards the exits of the room, or examine something in the room. You may also 'look inventory' to see a list of items you are carrying."
-    local moveHelp = "Move to another room through one of the room's exits. You can use shorthand for common directions: bow = 'b', stern = 's', port = 'p', starboard = 'sb', up = 'u', and down = 'd'."
+    local moveHelp = "Move to another room through one of the room's exits."
     local useHelp = "Use or interact with something in the room or an item in your inventory."
     local pickupHelp = "Pick up an item in the room and put it in your inventory."
     local dropHelp = "Take an item out of your inventory and leave it in the room."
     local quitHelp = "Return to the introduction."
     --local saveHelp = "Save your game."
+
+    -- Build moveHelp using game config
+    assert(game.config ~= nil, "ERROR: No game.config found!")
+    if game.config.defaultExits then
+        local exitData = {}
+        for exitName, data in pairs(game.config.defaultExits) do
+            data.name = exitName
+            table.insert(exitData, data)
+        end
+
+        table.sort(exitData, sortPredicate)
+
+        local exitStrings = {}
+        for i, data in ipairs(exitData) do
+            table.insert(exitStrings, data.name .. " = " .. table.concat(data.synonyms, ", "))
+        end
+        moveHelp = moveHelp .. " You can use shorthand for common directions: " .. table.concat(exitStrings, "; ")
+    end
 
     -- Commands
     local commands = self.commands

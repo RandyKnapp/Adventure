@@ -22,10 +22,7 @@ local Game = class.define({
     quit = false,
     config = nil,
     player = Player(),
-    states = {
-        hub       = HubState(),
-        adventure = AdventureState()
-    },
+    states = {},
     currentState = nil,
     adventureData = nil,
     adventureList = nil,
@@ -39,6 +36,10 @@ function Game:start ()
     assert(self.config ~= nil, "ERROR: Config file (data/config.lua) is missing or has errors.")
     assert(self.config.game ~= nil, "ERROR: Config file missing 'game' table.")
     assert(self.config.events ~= nil, "ERROR: Config file missing 'events' table.")
+
+    -- Initialize States
+    self.states.hub       = HubState()
+    self.states.adventure = AdventureState()
 
     -- Get functions
     self.config.events.onStartGame = getFunction(self.config.events.onStartGame)
